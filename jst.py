@@ -42,7 +42,7 @@ dataset['outcome'] = LabelEncoder().fit_transform(dataset['outcome'])
 X = dataset[['round_wins', 'round_losses', 'kills', 'deaths', 'assists', 'kdr', 'avg_dmg', 'acs']]
 y = dataset['outcome']
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=123)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
 
 p = Perceptron(learning_rate=0.01, n_iters=1000)
 p.fit(X_train.values, y_train.values)
@@ -78,17 +78,4 @@ def plot_data_distribution(y_train, y_test):
     plt.tight_layout()
     plt.show()
 
-def plot_accuracy(accuracy):
-    plt.figure(figsize=(8, 5))
-    plt.bar(['Test Accuracy'], [accuracy], color='#B3E5FC', edgecolor='black', width=0.4)
-    plt.title("Model Accuracy on Test Data", fontsize=14, fontweight='bold')
-    plt.ylabel("Accuracy", fontsize=12)
-    plt.ylim(0, 1)
-    
-    plt.text(0, accuracy + 0.05, f'{accuracy*100:.2f}%', ha='center', fontsize=12, color="black")
-    
-    sns.despine()  
-    plt.show()
-    
 plot_data_distribution(y_train, y_test)
-plot_accuracy(accuracy)
